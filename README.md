@@ -17,37 +17,42 @@ Make sure to tie down the inbound/outbound rules. Suggested to authenticate with
 ## Install Splunk
 Helpful documentation: https://dev.splunk.com/enterprise/dev_license/
 ### Login to your new EC2 instance
-ssh -i "your_filename.pem" username@12.23.567.89 
+`ssh -i "your_filename.pem" username@12.23.567.89`
 
 ### Download Splunk
-wget -O splunk-8.0.2-a7f645ddaf91-linux-2.6-amd64.deb 'https://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&platform=linux&version=8.0.2&product=splunk&filename=splunk-8.0.2-a7f645ddaf91-linux-2.6-amd64.deb&wget=true'
+`wget -O splunk-8.0.2-a7f645ddaf91-linux-2.6-amd64.deb 'https://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&platform=linux&version=8.0.2&product=splunk&filename=splunk-8.0.2-a7f645ddaf91-linux-2.6-amd64.deb&wget=true'`
 
 ### Install Splunk
 Helpful documentation: https://linoxide.com/linux-how-to/install-splunk-ubuntu/
+
 `sudo dpkg -i splunk-8.0.2-a7f645ddaf91-linux-2.6-amd64.deb`
  
 ### Enable Boot Start
-cd /opt/splunk/bin
-sudo ./splunk enable boot-start
-sudo service splunk start
+`cd /opt/splunk/bin`
+`sudo ./splunk enable boot-start`
+`sudo service splunk start`
 <agree to things>
 
 ## Download ATT&CK data
-wget https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json
+`wget https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json`
 (this can be locally; does not need to be saved directly onto the server)
 
 ### Modify downloaded json
-cd <location of downloaded json>
-nano enterprise-attack.json
+`cd <location of downloaded json>`
+`nano enterprise-attack.json`
 at the beginning of the file, delete the first open brace and bracket, aka the following:
-  {
+  ```
+ {
     "type": "bundle",
     "id": "bundle--83dad14b-ae53-4473-9f95-5ae37c8eaa5d",
     "spec_version": "2.0",
     "objects": [
+ ```
  at the end of the file, delete the closing bracket and brace, aka the following:
-      ]
+```
+ ]
 }
+ ```
 why? because this is basically header info and will jack up how the data is ingested into Splunk
   
 ## Import the data
