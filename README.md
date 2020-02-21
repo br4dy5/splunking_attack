@@ -1,4 +1,4 @@
-# splunking attack
+# splunking att&ck
 how to import the MITRE ATT&amp;CK Enterprise data for Splunking
 
 this is the abreviated version to notate actions I just took in case I need to recreate them in the future. I plan to dummy them down even more in the future.
@@ -24,7 +24,7 @@ wget -O splunk-8.0.2-a7f645ddaf91-linux-2.6-amd64.deb 'https://www.splunk.com/bi
 
 ### Install Splunk
 Helpful documentation: https://linoxide.com/linux-how-to/install-splunk-ubuntu/
- sudo dpkg -i splunk-8.0.2-a7f645ddaf91-linux-2.6-amd64.deb
+`sudo dpkg -i splunk-8.0.2-a7f645ddaf91-linux-2.6-amd64.deb`
  
 ### Enable Boot Start
 cd /opt/splunk/bin
