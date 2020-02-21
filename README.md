@@ -9,6 +9,7 @@ I'm sharing the configuration I chose, but these can be modified and still work.
 Helpful documentation: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html
 ### EC2 Instance
 Size: t2.medium or greater recommended, but may be able to get away with micro free tier.
+
 OS: I used Ubuntu 18.04, as that's what I'm comfortable with, but theoretically can use any OS Splunk supports
 
 ### Security Group
@@ -29,17 +30,22 @@ Helpful documentation: https://linoxide.com/linux-how-to/install-splunk-ubuntu/
  
 ### Enable Boot Start
 `cd /opt/splunk/bin`
+
 `sudo ./splunk enable boot-start`
+
 `sudo service splunk start`
+
 <agree to things>
 
 ## Download ATT&CK data
 `wget https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json`
+
 (this can be locally; does not need to be saved directly onto the server)
 
 ### Modify downloaded json
 `cd <location of downloaded json>`
 `nano enterprise-attack.json`
+
 at the beginning of the file, delete the first open brace and bracket, aka the following:
   ```
  {
@@ -56,18 +62,17 @@ at the beginning of the file, delete the first open brace and bracket, aka the f
 why? because this is basically header info and will jack up how the data is ingested into Splunk
   
 ## Import the data
-Login to your new Splunk console by going to the URL it gave you when you started Splunk. probably something like:
+1. Login to your new Splunk console by going to the URL it gave you when you started Splunk. probably something like:
 Waiting for web server at http://127.0.0.1:8000 to be available.. Done
-Login using the Splunk Admin username/password you created at installation.
-Once in the console, go to "Settings" from the top right menu, and select the icon labeled "Add Data"
-Select the "Upload" icon from the bottom of the page
-Click the "Select File" button and browse to the enterprise-attack.json file you previously downlaoded and modified.
-Select "Next"
-It should suggest \_json as the data type. Select "Next"
-It's suggested to rename the "host" to include the data of the ATT&CK export for future reference. Maybe something like "enterprise-attack-DDMonYYYY"
-It's also suggested to modify the Index, perhaps to "attack" by clicking the "Create a new index" link. On the next screen, the only field value you need to worry about is Index name. Click "Save"
-Click "Review"
-Click "Submit"
+2. Login using the Splunk Admin username/password you created at installation.
+3. Once in the console, go to "Settings" from the top right menu, and select the icon labeled "Add Data"
+4. Select the "Upload" icon from the bottom of the page
+5. Click the "Select File" button and browse to the enterprise-attack.json file you previously downlaoded and modified.
+6. Select "Next"
+7. It should suggest \_json as the data type. Select "Next"
+8. It's suggested to rename the "host" to include the data of the ATT&CK export for future reference. Maybe something like "enterprise-attack-DDMonYYYY". It's also suggested to modify the Index, perhaps to "attack" by clicking the "Create a new index" link. On the next screen, the only field value you need to worry about is Index name. Click "Save"
+9. Click "Review"
+10. Click "Submit"
 
 
 
